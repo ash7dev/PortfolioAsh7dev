@@ -112,16 +112,15 @@ const ServicesSection = () => {
     {
       icon: Rocket,
       title: "DevOps & Déploiement",
-      description: "Déploiement automatisé sur Vercel, Render avec intégration continue Git.",
-      fullDescription: "L'approche DevOps optimise le cycle de développement en automatisant les processus de test, build et déploiement, garantissant ainsi une livraison continue et fiable.",
-      technologies: ["Vercel", "Render", "Git", "CI/CD", "Docker", "GitHub Actions"],
+      description: "Déploiement simplifié sur Vercel et Render avec gestion de version Git.",
+      fullDescription: "Je propose des solutions de déploiement accessibles en utilisant des plateformes modernes qui simplifient la mise en production et la maintenance des applications web.",
+      technologies: ["Vercel", "Render", "Git", "GitHub"],
       qualityFeatures: [
-        "Pipeline CI/CD automatisé",
-        "Déploiement zero-downtime",
-        "Monitoring et alertes en temps réel",
-        "Rollback automatique en cas d'erreur",
-        "Tests automatisés avant déploiement",
-        "Infrastructure as Code (IaC)"
+        "Déploiement automatique à chaque push Git",
+        "Environnements de préproduction (staging)",
+        "Gestion facile des domaines et SSL",
+        "Optimisation des performances de base",
+        "Sauvegardes automatiques des données"
       ],
       color: "from-secondary to-primary"
     }
