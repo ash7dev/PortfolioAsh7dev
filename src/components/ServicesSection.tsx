@@ -216,10 +216,16 @@ const ServicesSection = () => {
               Services & Expertise
             </span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <motion.p 
+            className="text-xl text-muted-foreground max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
             Solutions complètes pour vos projets web, du concept au déploiement. 
             Technologies modernes et bonnes pratiques de développement.
-          </p>
+          </motion.p>
         </motion.div>
 
         <motion.div
@@ -260,30 +266,55 @@ const ServicesSection = () => {
 
                   {/* Technologies */}
                   <div className="flex flex-wrap gap-2 mb-6">
-                    {service.technologies.slice(0, 4).map((tech) => (
-                      <span
+                    {service.technologies.slice(0, 4).map((tech, techIndex) => (
+                      <motion.span
                         key={tech}
                         className="px-3 py-1 text-xs font-medium bg-secondary text-secondary-foreground rounded-full"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ 
+                          duration: 0.4, 
+                          delay: 0.6 + (index * 0.1) + (techIndex * 0.05) 
+                        }}
                       >
                         {tech}
-                      </span>
+                      </motion.span>
                     ))}
                     {service.technologies.length > 4 && (
-                      <span className="px-3 py-1 text-xs font-medium bg-muted text-muted-foreground rounded-full">
+                      <motion.span 
+                        className="px-3 py-1 text-xs font-medium bg-muted text-muted-foreground rounded-full"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ 
+                          duration: 0.4, 
+                          delay: 0.6 + (index * 0.1) + 0.2 
+                        }}
+                      >
                         +{service.technologies.length - 4}
-                      </span>
+                      </motion.span>
                     )}
                   </div>
 
                   {/* Learn more link */}
-                  <button
+                  <motion.button
                     type="button"
                     onClick={() => { setSelectedService(service); setCurrentServiceIndex(index); }}
                     className="flex items-center text-primary font-medium group-hover:gap-2 transition-all duration-200"
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ 
+                      duration: 0.5, 
+                      delay: 0.8 + (index * 0.1) 
+                    }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
                     <span>En savoir plus</span>
                     <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                  </button>
+                  </motion.button>
 
                   {/* Hover effect overlay */}
                   <div className="absolute inset-0 border-2 border-transparent group-hover:border-primary/20 rounded-2xl transition-all duration-300 pointer-events-none" />

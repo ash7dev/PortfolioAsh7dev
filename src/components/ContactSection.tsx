@@ -32,10 +32,10 @@ const ContactSection = () => {
     setSubmitStatus('idle');
     
     try {
-      // Configuration EmailJS - vous devrez remplacer ces valeurs par vos propres IDs
-      const serviceId = 'votre_service_id';
-      const templateId = 'votre_template_id';
-      const publicKey = 'votre_public_key';
+      // Configuration EmailJS
+      const serviceId = 'TROUVEZ_VOTRE_SERVICE_ID'; // À remplacer par votre Service ID réel
+      const templateId = 'template_fbmhaf9';
+      const publicKey = 'ydhOJKfk6brp-WH_Z';
       
       // Préparation des données pour EmailJS
       const templateParams = {
@@ -48,19 +48,40 @@ const ContactSection = () => {
       };
       
       // Envoi de l'email via EmailJS
+      console.log('Tentative d\'envoi EmailJS:', { serviceId, templateId, templateParams });
+      
       const response = await emailjs.send(serviceId, templateId, templateParams, publicKey);
+      
+      console.log('Réponse EmailJS:', response);
       
       if (response.status === 200) {
         setSubmitStatus('success');
         setSubmitMessage('Message envoyé avec succès ! Je vous répondrai dans les plus brefs délais.');
         reset();
       } else {
-        throw new Error('Erreur lors de l\'envoi du message');
+        throw new Error(`Erreur EmailJS - Status: ${response.status}, Text: ${response.text}`);
       }
     } catch (error) {
-      console.error('Erreur EmailJS:', error);
+      console.error('Erreur EmailJS détaillée:', error);
+      
+      let errorMessage = 'Une erreur est survenue lors de l\'envoi.';
+      
+      if (error && typeof error === 'object') {
+        if ('status' in error) {
+          errorMessage += ` (Status: ${error.status})`;
+        }
+        if ('text' in error) {
+          errorMessage += ` - ${error.text}`;
+        }
+        if ('message' in error) {
+          errorMessage += ` - ${error.message}`;
+        }
+      }
+      
+      errorMessage += ' Veuillez réessayer ou me contacter directement par email.';
+      
       setSubmitStatus('error');
-      setSubmitMessage('Une erreur est survenue lors de l\'envoi. Veuillez réessayer ou me contacter directement par email.');
+      setSubmitMessage(errorMessage);
     }
   };
 
