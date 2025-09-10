@@ -71,7 +71,7 @@ const PortfolioSection = () => {
       technologies: ["React", "TypeScript", "Tailwind CSS", "Framer Motion", "Vite"],
       category: "frontend",
       demoUrl: "https://portfolio-ash7dev.vercel.app/",
-      githubUrl: "https://github.com/ash7dev/portfolio-personnel",
+      githubUrl: "https://github.com/ash7dev/PortfolioAsh7dev",
       featured: false
     }
   ];
