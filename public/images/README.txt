@@ -1,0 +1,1 @@
+Place profile images here. Expected file: profile.jpg
