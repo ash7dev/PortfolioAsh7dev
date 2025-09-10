@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Download, MessageCircle, Folder } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { ChevronDown, Download, ExternalLink, Github, Mail, MapPin, Phone, Calendar, Folder, ArrowRight, MessageCircle, Menu, X } from 'lucide-react';
+import { useTheme } from '@/contexts/ThemeContext';
 
 const HeroSection = () => {
   const [imageError, setImageError] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -59,9 +63,77 @@ const HeroSection = () => {
               </p>
             </motion.div>
 
+            {/* Mobile Menu Button */}
+            <motion.div variants={itemVariants} className="sm:hidden">
+              <motion.button
+                onClick={() => setShowMobileMenu(!showMobileMenu)}
+                className="w-full px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all duration-200 shadow-lg hover:shadow-primary/25 flex items-center justify-center"
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                {showMobileMenu ? (
+                  <>
+                    <X className="mr-2 h-5 w-5" />
+                    Fermer le menu
+                  </>
+                ) : (
+                  <>
+                    <Menu className="mr-2 h-5 w-5" />
+                    Menu
+                  </>
+                )}
+              </motion.button>
+              
+              {/* Mobile Dropdown Menu */}
+              {showMobileMenu && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="mt-4 space-y-3"
+                >
+                  <motion.a
+                    href="#portfolio"
+                    onClick={() => setShowMobileMenu(false)}
+                    className="w-full group inline-flex items-center justify-center px-6 py-3 bg-primary/90 text-primary-foreground rounded-lg font-medium hover:bg-primary transition-all duration-200"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <Folder className="mr-2 h-4 w-4" />
+                    Découvrir mes projets
+                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </motion.a>
+
+                  <motion.a
+                    href="/cv-ash7dev.pdf"
+                    onClick={() => setShowMobileMenu(false)}
+                    className="w-full group inline-flex items-center justify-center px-6 py-3 bg-secondary text-secondary-foreground rounded-lg font-medium hover:bg-secondary/80 transition-all duration-200 border border-border"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    download
+                  >
+                    <Download className="mr-2 h-4 w-4" />
+                    Télécharger mon CV
+                  </motion.a>
+
+                  <motion.a
+                    href="#contact"
+                    onClick={() => setShowMobileMenu(false)}
+                    className="w-full group inline-flex items-center justify-center px-6 py-3 bg-accent/10 text-accent rounded-lg font-medium hover:bg-accent/20 transition-all duration-200 border border-accent/20"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <MessageCircle className="mr-2 h-4 w-4" />
+                    Me contacter
+                  </motion.a>
+                </motion.div>
+              )}
+            </motion.div>
+
+            {/* Desktop Buttons */}
             <motion.div
               variants={itemVariants}
-              className="flex flex-col sm:flex-row gap-4"
+              className="hidden sm:flex flex-col sm:flex-row gap-4"
             >
               <motion.a
                 href="#portfolio"

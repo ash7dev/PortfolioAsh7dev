@@ -70,7 +70,7 @@ const PortfolioSection = () => {
       image: "/images/portfolio/PORTFOLIO.png",
       technologies: ["React", "TypeScript", "Tailwind CSS", "Framer Motion", "Vite"],
       category: "frontend",
-      demoUrl: "https://ash-dev.vercel.app",
+      demoUrl: "https://portfolio-ash7dev.vercel.app/",
       githubUrl: "https://github.com/ash7dev/portfolio-personnel",
       featured: false
     }
