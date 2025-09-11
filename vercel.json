@@ -1,5 +1,13 @@
 {
   "version": 2,
+  "functions": {
+    "api/contact.js": {
+      "runtime": "nodejs18.x"
+    }
+  },
+  "env": {
+    "GMAIL_APP_PASSWORD": "@gmail_app_password"
+  },
   "builds": [
     {
       "src": "package.json",
@@ -9,10 +17,14 @@
       }
     }
   ],
-  "rewrites": [
+  "routes": [
     {
-      "source": "(.*)",
-      "destination": "/index.html"
+      "src": "/api/contact",
+      "dest": "/api/contact.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ],
   "buildCommand": "npm run build",

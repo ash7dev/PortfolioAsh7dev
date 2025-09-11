@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import emailjs from '@emailjs/browser';
 import { Mail, Phone, MapPin, Send, Github, Linkedin, Clock, MessageCircle, CheckCircle, AlertCircle } from 'lucide-react';
 
 const contactSchema = z.object({
@@ -32,37 +31,29 @@ const ContactSection = () => {
     setSubmitStatus('idle');
     
     try {
-      // Configuration EmailJS
-      const serviceId = 'TROUVEZ_VOTRE_SERVICE_ID'; // À remplacer par votre Service ID réel
-      const templateId = 'template_fbmhaf9';
-      const publicKey = 'ydhOJKfk6brp-WH_Z';
+      // Envoi des données à notre serveur backend
+      console.log('Envoi des données au serveur:', data);
       
-      // Préparation des données pour EmailJS
-      const templateParams = {
-        from_name: data.name,
-        from_email: data.email,
-        subject: data.subject,
-        message: data.message,
-        to_email: 'aszothiam28@gmail.com',
-        reply_to: data.email
-      };
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
       
-      // Envoi de l'email via EmailJS
-      console.log('Tentative d\'envoi EmailJS:', { serviceId, templateId, templateParams });
-      
-      const response = await emailjs.send(serviceId, templateId, templateParams, publicKey);
-      
-      console.log('Réponse EmailJS:', response);
+      const result = await response.json();
+      console.log('Réponse du serveur:', result);
       
       if (response.status === 200) {
         setSubmitStatus('success');
         setSubmitMessage('Message envoyé avec succès ! Je vous répondrai dans les plus brefs délais.');
         reset();
       } else {
-        throw new Error(`Erreur EmailJS - Status: ${response.status}, Text: ${response.text}`);
+        throw new Error(`Erreur serveur - Status: ${response.status}`);
       }
     } catch (error) {
-      console.error('Erreur EmailJS détaillée:', error);
+      console.error('Erreur détaillée:', error);
       
       let errorMessage = 'Une erreur est survenue lors de l\'envoi.';
       
